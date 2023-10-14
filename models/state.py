@@ -5,7 +5,7 @@
 from models.base_model import BaseModel
 
 
-class Staet(BaseModel):
+class State(BaseModel):
     """
     a subclass of BAseModelclass
     attribute:

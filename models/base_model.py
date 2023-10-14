@@ -4,7 +4,6 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
-
 class BaseModel:
     """Define the BaseModel of the project"""
 
@@ -45,4 +44,3 @@ class BaseModel:
         class_name = self.__class__.__name__
         return ("[{}] ({})   {}".
                 format(class_name, self.id, self.__dict__))
-
