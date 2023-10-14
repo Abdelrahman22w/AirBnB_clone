@@ -5,11 +5,15 @@ Unittest classes:
     TestBaseModel_save
     TestBaseModel_to_dict
 """
+
 import os
 import models
 import unittest
+import sys
 from datetime import datetime
 from time import sleep
+import sys
+sys.path.append(models)
 from models.base_model import BaseModel
 
 
