@@ -15,14 +15,18 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-def parse(line: str):
-    """Splits lines considering spaces"""
-    args = shlex.split(line)
-    return args, len(args)
+import cmd
+import os
+from models import storage
+from models.base_model import BaseModel
 
+def parse(line: str):
+    """Splits lines considering spaces and returns args and num_args"""
+    args = line.split()
+    num_args = len(args)
+    return args, num_args
 
 class HBNBCommand(cmd.Cmd):
-    """define the command interpreter"""
     prompt = "(hbnb) "
     __classes = {
         "BaseModel",
@@ -34,7 +38,6 @@ class HBNBCommand(cmd.Cmd):
         "Review"
     }
 
-    """HBnB commands"""
     def do_quit(self, args):
         """Quit the command to exit the program"""
         return True
@@ -48,22 +51,15 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_clear(self, args):
-        """clear terminal"""
+        """Clear the terminal"""
         os.system("clear")
 
-    def default(self, line: str) -> None:
-        print(f"command \"{line}\" not found")
+    def default(self, line: str):
+        """Handle unrecognized commands."""
+        print(f"Command '{line}' not found")
 
-    def do_count(self, arg):
-        """Usage: count <class> or <class>.count()
-        Retrieve the number of instances of a given class."""
-        arg_list = parse(arg)
-        count = 0
-        for obj in storage.all().values():
-            if arg_list[0] == obj.__class__.__name__:
-                count += 1
-        print(count)
-        
+
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
