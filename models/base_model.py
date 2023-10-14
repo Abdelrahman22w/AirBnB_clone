@@ -10,23 +10,14 @@ class BaseModel:
     """Define the BaseModel of the project"""
 
     def __init__(self, *args, **kwargs):
-        """Initialize a new BaseModel.
-        Args:
-            *args (any type): unused
-            **kwargs (dict): the key and value of the attributes
-        """
-        dateFormat = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
-        if len(kwargs) != 0:
-            for i, j in kwargs.items():
-                if i == "created_at" or j == "updated_at":
-                    self.__dict__[i] = datetime.strptime(j, dateFormat)
-                else:
-                    self.__dict__[i] = j
-        else:
-            storage.new(self)
+        """initialization"""
+        if kwargs is not None and kwargs != {}:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    if key in ('created_at', 'updated_at'):
+                        setattr(self, key, datetime.fromisoformat(value))
+                    else:
+                        setattr(self, key, value)
 
     def save(self):
         """update the (updated_at) to current datetime"""
