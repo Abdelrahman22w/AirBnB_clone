@@ -5,4 +5,5 @@
     border-top: 1px solid #CCCCCC
     position: absolute;
     text-align: center;
+    display: grid;
   }
